@@ -3,6 +3,8 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/navbar/Navbar";
 import Sidebar from "@/components/sidebar/Sidebar";
+import { Toaster } from "@/components/ui/sonner";
+import { ThemeProvider } from "@/components/theme-provider/ThemeProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -16,7 +18,8 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Lucien Admin Dashboard",
-  description: "This project is built on nextjs, typescript, shadcn/ui, tailwindcss, etc.",
+  description:
+    "This project is built on nextjs, typescript, shadcn/ui, tailwindcss, etc.",
 };
 
 export default function RootLayout({
@@ -27,20 +30,23 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased w-screen h-screen flex flex-col`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased `}
       >
-        <header className="basis-[70px]">
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="light"
+          enableSystem={false}
+          storageKey="dashboard-theme "
+        >
           <Navbar />
-        </header>
-        
-        <main className="flex-1 flex">
-          <div className="basis-[200px] bg-blue-500">
-            <Sidebar />
-          </div>
-          <div className="flex-1 bg-yellow-500">
-            {children}
-          </div>
-        </main>
+          <main className="flex">
+            <div className="hidden md:block h-[100vh] w-[250px]">
+              <Sidebar />
+            </div>
+            <div className="p-5 flex-1">{children}</div>
+          </main>
+          <Toaster />
+        </ThemeProvider>
       </body>
     </html>
   );

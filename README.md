@@ -45,6 +45,8 @@ npx create-next-app@latest --tailwind
 npx shadcn@latest init
 # add shadcn components
 npx shadcn@latest add [component-name]
+# add icon
+npm install lucide-react
 ```
 
 - [components.json] - This is used to config the shadcn
